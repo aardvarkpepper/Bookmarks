@@ -1,7 +1,14 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
 const logger = require("morgan")
 const bookmarksController = require("./controllers/bookmarksControllers.js")
+
+// MIDDLEWARE
+app.use(express.json());
+
+// Every back end request is accepted, with below.
+app.use(cors());
 
 app.use(logger('dev'))
 // /bookmarks is the base url endpoint for the routes
@@ -9,8 +16,8 @@ app.use(logger('dev'))
 app.use("/bookmarks",bookmarksController)
 //separation of concerns
 
-// MIDDLEWARE
-app.use(express.json());
+
+
 
 app.use((req, res, next) => {
   console.log("This code runs for every request");
@@ -27,3 +34,5 @@ app.get("*", (req, res) => {
 })
 
 module.exports = app;
+
+// npm i cors

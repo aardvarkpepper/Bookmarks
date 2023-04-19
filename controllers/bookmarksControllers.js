@@ -23,20 +23,18 @@ bookmarks.post("/", validateURL, (req, res) => {
   res.json(bookmarksArray[bookmarksArray.length - 1]);
 });
 
+
 // DELETE
 bookmarks.delete("/:indexArray", (req, res) => {
-  if (bookmarksArray[req.params.arrayIndex]) {
-    const deletedBookMark = bookmarksArray.splice(req.params.indexArray, 1);
-    res.status(200).json(deletedBookMark);
-  } else {
-    res.status(404).json({ error: "Not Found" });
-  }
+  const deletedBookmark = bookmarksArray.splice(req.params.indexArray, 1);
+  res.status(200).json(deletedBookmark);
 });
 
 // UPDATE
 bookmarks.put("/:arrayIndex", validateURL, async (req, res) => {
   if (bookmarksArray[req.params.arrayIndex]) {
     bookmarksArray[req.params.arrayIndex] = req.body;
+    console.log("PUT route successful", req.body )
     res.status(200).json(bookmarksArray[req.params.arrayIndex]);
   } else {
     res.status(404).json({ error: "Not Found" });
